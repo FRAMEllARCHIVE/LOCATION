@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Location Detection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+    }
+    .location {
+      font-size: 1.5rem;
+      color: #333;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Welcome!</h1>
+  <p>Your current location is:</p>
+  <div class="location">
+    <span id="country">Detecting country...</span>,
+    <span id="region">Detecting region...</span>
+  </div>
+</div>
+
+<script>
+  // Fetch detailed location information using ipapi
+  fetch('https://ipapi.co/json/')
+    .then(response => response.json())
+    .then(data => {
+      const country = data.country_name || "Unknown";
+      const region = data.region || "Unknown";
+
+      document.getElementById('country').textContent = country;
+      document.getElementById('region').textContent = region;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('country').textContent = "Could not determine country";
+      document.getElementById('region').textContent = "Could not determine region";
+    });
+</script>
+
+</body>
+</html>
